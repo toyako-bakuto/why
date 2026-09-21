@@ -4,70 +4,1372 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Why Web - Question Board</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ==========================================================
+          ALL STYLES INLINE - NO EXTERNAL CSS DEPENDENCIES
+        ========================================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0e1a;
+            color: #e8edf5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 24px;
+            padding: 20px 28px;
+            background: #141b2d;
+            border-radius: 16px;
+            border: 1px solid #2a3a52;
+        }
+
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-left p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .btn-add {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(59,130,246,0.4);
+        }
+
+        .btn-add span {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        /* FILTER */
+        .filter-section {
+            background: #141b2d;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 24px;
+            border: 1px solid #2a3a52;
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #94a3b8;
+        }
+
+        .btn-filter-clear {
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 1px solid #2a3a52;
+            background: #1a2336;
+            color: #94a3b8;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-filter-clear:hover {
+            background: rgba(239,68,68,0.15);
+            color: #ef4444;
+            border-color: #ef4444;
+        }
+
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .category-filter-btn {
+            padding: 5px 14px;
+            border-radius: 50px;
+            border: 1px solid #2a3a52;
+            background: #1a2336;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-filter-btn:hover {
+            background: rgba(59,130,246,0.15);
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .category-filter-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .filter-stats {
+            color: #64748b;
+            font-size: 0.85rem;
+            padding-top: 12px;
+            border-top: 1px solid #2a3a52;
+        }
+
+        .filter-stats span {
+            color: #e8edf5;
+            font-weight: 600;
+        }
+
+        /* GRID */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD */
+        .question-card {
+            background: #1a2336;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #2a3a52;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+            box-shadow: 0 8px 30px rgba(59,130,246,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .card-left {
+            flex: 1;
+        }
+
+        .question-date {
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+
+        .question-category {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 50px;
+            background: rgba(59,130,246,0.15);
+            color: #3b82f6;
+            border: 1px solid rgba(59,130,246,0.2);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .card-actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            transition: all 0.2s;
+        }
+
+        .card-actions button:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .edit-card-btn { color: #3b82f6 !important; }
+        .edit-card-btn:hover { background: rgba(59,130,246,0.15); }
+        .delete-card-btn { color: #ef4444 !important; }
+        .delete-card-btn:hover { background: rgba(239,68,68,0.15); }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e8edf5;
+            margin: 10px 0 14px 0;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .answer-status {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .status-answered {
+            background: rgba(34,197,94,0.15);
+            color: #22c55e;
+            border: 1px solid rgba(34,197,94,0.2);
+        }
+
+        .status-unanswered {
+            background: rgba(245,158,11,0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(245,158,11,0.2);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex !important;
+        }
+
+        .modal {
+            background: #141b2d;
+            border-radius: 20px;
+            padding: 28px;
+            max-width: 540px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #2a3a52;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #2a3a52;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #e8edf5;
+        }
+
+        .modal-close {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #1a2336;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(239,68,68,0.15);
+            color: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 0;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3a52;
+            margin-top: 20px;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .form-group .required { color: #ef4444; }
+        .form-group .optional { color: #64748b; font-weight: 400; font-size: 0.8rem; }
+
+        .form-group textarea,
+        .form-group .form-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #2a3a52;
+            border-radius: 10px;
+            background: #0f1729;
+            color: #e8edf5;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .form-group .form-select option {
+            background: #141b2d;
+            color: #e8edf5;
+        }
+
+        .form-group textarea:focus,
+        .form-group .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            outline: none;
+        }
+
+        .form-group textarea::placeholder {
+            color: #64748b;
+        }
+
+        /* QUESTION DISPLAY */
+        .question-display {
+            background: #1a2336;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .question-display .q-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #e8edf5;
+            margin: 6px 0;
+        }
+
+        .question-display .q-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .question-display .q-category {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 50px;
+            background: rgba(59,130,246,0.15);
+            color: #3b82f6;
+            border: 1px solid rgba(59,130,246,0.2);
+            text-transform: uppercase;
+        }
+
+        .question-display strong {
+            color: #94a3b8;
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+        }
+
+        .btn-secondary {
+            background: #1a2336;
+            color: #94a3b8;
+            border: 1px solid #2a3a52;
+        }
+
+        .btn-secondary:hover {
+            background: #2a3a52;
+            color: #e8edf5;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 24px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 999999;
+            max-width: 400px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-success { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .toast-error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+        /* EMPTY STATE */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: #141b2d;
+            border-radius: 16px;
+            border: 2px dashed #2a3a52;
+        }
+
+        .empty-state .emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; }
+        .empty-state h3 { font-size: 1.3rem; font-weight: 600; color: #e8edf5; margin-bottom: 6px; }
+        .empty-state p { color: #64748b; font-size: 0.95rem; }
+
+        /* SPINNER */
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 4px solid #2a3a52;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; padding: 16px 20px; }
+            .header-left h1 { font-size: 1.5rem; }
+            .btn-add { width: 100%; justify-content: center; }
+            .filter-section { padding: 14px 16px; }
+            .questions-grid { grid-template-columns: 1fr; }
+            .modal { padding: 20px; margin: 10px; }
+            .modal-footer { flex-direction: column-reverse; }
+            .modal-footer .btn { width: 100%; justify-content: center; }
+            .toast { bottom: 16px; right: 16px; left: 16px; max-width: none; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            .question-text { font-size: 0.95rem; }
+            .modal { padding: 16px; }
+            .modal-title { font-size: 1.1rem; }
+        }
+
+        /* SCROLLBAR */
+        .modal::-webkit-scrollbar { width: 5px; }
+        .modal::-webkit-scrollbar-track { background: #1a2336; border-radius: 10px; }
+        .modal::-webkit-scrollbar-thumb { background: #2a3a52; border-radius: 10px; }
+        .modal::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    </style>
 </head>
 <body>
     <div class="app">
+        <!-- HEADER -->
         <header>
-            <h1>🤔 Why Web</h1>
-            <p>Think, Write, Answer</p>
-            <button id="openModalBtn" class="btn-add">+ Tanya Baru</button>
+            <div class="header-left">
+                <h1>🤔 Why Web</h1>
+                <p>Think, Write, Answer</p>
+            </div>
+            <button id="openModalBtn" class="btn-add">
+                <span>+</span> Tanya Baru
+            </button>
         </header>
 
-        <main>
-            <div id="questionsGrid" class="questions-grid">
-                <!-- Pertanyaan akan ditampilkan di sini dengan grid 4 baris -->
+        <!-- FILTER -->
+        <div class="filter-section">
+            <div class="filter-header">
+                <span class="filter-label">📂 Filter Kategori:</span>
+                <button id="clearFilterBtn" class="btn-filter-clear">✕ Hapus Filter</button>
             </div>
+            <div id="categoryFilters" class="category-filters"></div>
+            <div class="filter-stats">
+                <span id="totalQuestions">0</span> pertanyaan
+            </div>
+        </div>
+
+        <!-- GRID -->
+        <main>
+            <div id="questionsGrid" class="questions-grid"></div>
         </main>
     </div>
 
-    <!-- Modal Popup untuk Form -->
-    <div id="questionModal" class="modal">
-        <div class="modal-content">
+    <!-- MODAL TANYA BARU -->
+    <div id="questionModal" class="modal-overlay">
+        <div class="modal">
             <div class="modal-header">
-                <h2>📝 Buat Pertanyaan Baru</h2>
-                <span class="close">&times;</span>
+                <h2 class="modal-title">📝 Buat Pertanyaan Baru</h2>
+                <button class="modal-close close">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="modalQuestion">Pertanyaan:</label>
+                    <label>Pertanyaan <span class="required">*</span></label>
                     <textarea id="modalQuestion" rows="3" placeholder="Tulis pertanyaanmu di sini..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="modalAnswer">Jawaban (opsional, bisa diisi nanti):</label>
+                    <label>Kategori <span class="required">*</span></label>
+                    <select id="modalCategory" class="form-select">
+                        <option value="">Pilih kategori...</option>
+                        <option value="Programming">💻 Programming</option>
+                        <option value="Design">🎨 Design</option>
+                        <option value="Business">📊 Business</option>
+                        <option value="Science">🔬 Science</option>
+                        <option value="Technology">⚡ Technology</option>
+                        <option value="Education">📚 Education</option>
+                        <option value="Health">🏥 Health</option>
+                        <option value="Lifestyle">🌿 Lifestyle</option>
+                        <option value="Other">📌 Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Jawaban <span class="optional">(opsional)</span></label>
                     <textarea id="modalAnswer" rows="4" placeholder="Tulis jawabanmu di sini..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="saveQuestionBtn" class="btn-save">💾 Simpan</button>
-                <button class="btn-cancel close">Batal</button>
+                <button class="btn btn-secondary close">Batal</button>
+                <button id="saveQuestionBtn" class="btn btn-primary">💾 Simpan</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal untuk Menjawab Pertanyaan -->
-    <div id="answerModal" class="modal">
-        <div class="modal-content">
+    <!-- MODAL JAWAB -->
+    <div id="answerModal" class="modal-overlay">
+        <div class="modal">
             <div class="modal-header">
-                <h2>💭 Jawab Pertanyaan</h2>
-                <span class="close-answer">&times;</span>
+                <h2 class="modal-title">💭 Jawab Pertanyaan</h2>
+                <button class="modal-close close-answer">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="question-display" id="answerQuestionDisplay"></div>
                 <div class="form-group">
-                    <label for="answerInput">Jawabanmu:</label>
+                    <label>Jawabanmu <span class="required">*</span></label>
                     <textarea id="answerInput" rows="5" placeholder="Tulis jawabanmu di sini..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="submitAnswerBtn" class="btn-save">✅ Jawab</button>
-                <button class="btn-cancel close-answer">Batal</button>
+                <button class="btn btn-secondary close-answer">Batal</button>
+                <button id="submitAnswerBtn" class="btn btn-success">✅ Jawab</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL EDIT -->
+    <div id="editModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">✏️ Edit Pertanyaan</h2>
+                <button class="modal-close close-edit">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Pertanyaan <span class="required">*</span></label>
+                    <textarea id="editQuestion" rows="3" placeholder="Edit pertanyaanmu di sini..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Kategori <span class="required">*</span></label>
+                    <select id="editCategory" class="form-select">
+                        <option value="">Pilih kategori...</option>
+                        <option value="Programming">💻 Programming</option>
+                        <option value="Design">🎨 Design</option>
+                        <option value="Business">📊 Business</option>
+                        <option value="Science">🔬 Science</option>
+                        <option value="Technology">⚡ Technology</option>
+                        <option value="Education">📚 Education</option>
+                        <option value="Health">🏥 Health</option>
+                        <option value="Lifestyle">🌿 Lifestyle</option>
+                        <option value="Other">📌 Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Jawaban</label>
+                    <textarea id="editAnswer" rows="4" placeholder="Edit jawabanmu di sini..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-edit">Batal</button>
+                <button id="saveEditBtn" class="btn btn-primary">💾 Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
     <div id="toast" class="toast"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // ============================================================
+        // WHY WEB - FULL JAVASCRIPT (Inline untuk menghindari masalah loading)
+        // ============================================================
+        
+        (function() {
+            'use strict';
+            
+            console.log('🚀 Why Web starting...');
+            
+            // ============================================================
+            // CONFIG
+            // ============================================================
+            
+            const API_URL = 'save-data.php';
+            
+            // ============================================================
+            // STATE
+            // ============================================================
+            
+            let currentAnswerId = null;
+            let currentEditId = null;
+            let currentFilter = 'all';
+            let allQuestions = [];
+            
+            // ============================================================
+            // DOM REFS
+            // ============================================================
+            
+            const $ = (id) => document.getElementById(id);
+            const $$ = (sel) => document.querySelectorAll(sel);
+            
+            const dom = {
+                openModalBtn: $('openModalBtn'),
+                questionModal: $('questionModal'),
+                answerModal: $('answerModal'),
+                editModal: $('editModal'),
+                saveQuestionBtn: $('saveQuestionBtn'),
+                submitAnswerBtn: $('submitAnswerBtn'),
+                saveEditBtn: $('saveEditBtn'),
+                modalQuestion: $('modalQuestion'),
+                modalCategory: $('modalCategory'),
+                modalAnswer: $('modalAnswer'),
+                answerInput: $('answerInput'),
+                answerQuestionDisplay: $('answerQuestionDisplay'),
+                editQuestion: $('editQuestion'),
+                editCategory: $('editCategory'),
+                editAnswer: $('editAnswer'),
+                questionsGrid: $('questionsGrid'),
+                categoryFilters: $('categoryFilters'),
+                clearFilterBtn: $('clearFilterBtn'),
+                totalQuestions: $('totalQuestions'),
+                toast: $('toast')
+            };
+            
+            console.log('📌 DOM Elements:', Object.keys(dom).filter(k => dom[k]).length, 'found');
+            
+            // ============================================================
+            // TOAST
+            // ============================================================
+            
+            function showToast(message, type = 'success') {
+                const toast = dom.toast;
+                if (!toast) return;
+                
+                toast.textContent = message;
+                toast.className = 'toast';
+                toast.classList.add(type === 'success' ? 'toast-success' : 'toast-error');
+                
+                // Force reflow
+                void toast.offsetWidth;
+                toast.classList.add('show');
+                
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            // ============================================================
+            // MODAL
+            // ============================================================
+            
+            function openModal(modal) {
+                if (!modal) return;
+                modal.style.display = 'flex';
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                console.log('📂 Modal opened:', modal.id);
+            }
+            
+            function closeModal(modal) {
+                if (!modal) return;
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log('📂 Modal closed:', modal.id);
+            }
+            
+            function closeAllModals() {
+                closeModal(dom.questionModal);
+                closeModal(dom.answerModal);
+                closeModal(dom.editModal);
+            }
+            
+            // ============================================================
+            // API
+            // ============================================================
+            
+            async function fetchAPI(url, options = {}) {
+                try {
+                    const response = await fetch(url, {
+                        ...options,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            ...(options.headers || {})
+                        }
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    
+                    const text = await response.text();
+                    if (!text || text.trim() === '') {
+                        throw new Error('Response kosong');
+                    }
+                    
+                    return JSON.parse(text);
+                } catch (error) {
+                    console.error('❌ Fetch error:', error);
+                    showToast('Error: ' + error.message, 'error');
+                    throw error;
+                }
+            }
+            
+            // ============================================================
+            // CRUD
+            // ============================================================
+            
+            async function handleSaveQuestion() {
+                console.log('💾 Saving question...');
+                
+                const question = dom.modalQuestion?.value.trim() || '';
+                const category = dom.modalCategory?.value || '';
+                const answer = dom.modalAnswer?.value.trim() || '';
+                
+                if (!question) {
+                    showToast('Pertanyaan tidak boleh kosong!', 'error');
+                    dom.modalQuestion?.focus();
+                    return;
+                }
+                
+                if (!category) {
+                    showToast('Silakan pilih kategori!', 'error');
+                    dom.modalCategory?.focus();
+                    return;
+                }
+                
+                try {
+                    const result = await fetchAPI(API_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            question,
+                            category,
+                            answer,
+                            timestamp: new Date().toISOString(),
+                            status: answer ? 'answered' : 'unanswered'
+                        })
+                    });
+                    
+                    if (result.success) {
+                        showToast('✅ Pertanyaan berhasil disimpan!', 'success');
+                        closeModal(dom.questionModal);
+                        loadAllQuestions();
+                    } else {
+                        showToast('❌ ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showToast('❌ Error: ' + error.message, 'error');
+                }
+            }
+            
+            async function handleSubmitAnswer() {
+                console.log('💾 Submitting answer...');
+                
+                const answer = dom.answerInput?.value.trim() || '';
+                
+                if (!answer) {
+                    showToast('Jawaban tidak boleh kosong!', 'error');
+                    dom.answerInput?.focus();
+                    return;
+                }
+                
+                try {
+                    const result = await fetchAPI(API_URL, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            id: currentAnswerId,
+                            answer: answer,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    
+                    if (result.success) {
+                        showToast('✅ Jawaban berhasil disimpan!', 'success');
+                        closeModal(dom.answerModal);
+                        loadAllQuestions();
+                    } else {
+                        showToast('❌ ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showToast('❌ Error: ' + error.message, 'error');
+                }
+            }
+            
+            async function handleSaveEdit() {
+                console.log('💾 Saving edit...');
+                
+                const question = dom.editQuestion?.value.trim() || '';
+                const category = dom.editCategory?.value || '';
+                const answer = dom.editAnswer?.value.trim() || '';
+                
+                if (!question) {
+                    showToast('Pertanyaan tidak boleh kosong!', 'error');
+                    dom.editQuestion?.focus();
+                    return;
+                }
+                
+                if (!category) {
+                    showToast('Silakan pilih kategori!', 'error');
+                    dom.editCategory?.focus();
+                    return;
+                }
+                
+                try {
+                    const result = await fetchAPI(API_URL, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            id: currentEditId,
+                            question,
+                            category,
+                            answer,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    
+                    if (result.success) {
+                        showToast('✅ Pertanyaan berhasil diupdate!', 'success');
+                        closeModal(dom.editModal);
+                        loadAllQuestions();
+                    } else {
+                        showToast('❌ ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showToast('❌ Error: ' + error.message, 'error');
+                }
+            }
+            
+            // ============================================================
+            // DELETE
+            // ============================================================
+            
+            async function deleteQuestion(id, event) {
+                if (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+                
+                console.log('🗑️ Deleting question:', id);
+                
+                if (!confirm('Apakah Anda yakin ingin menghapus pertanyaan ini?')) {
+                    return;
+                }
+                
+                try {
+                    const result = await fetchAPI(API_URL, {
+                        method: 'DELETE',
+                        body: JSON.stringify({ id })
+                    });
+                    
+                    if (result.success) {
+                        showToast('✅ Pertanyaan berhasil dihapus!', 'success');
+                        loadAllQuestions();
+                    } else {
+                        showToast('❌ ' + result.message, 'error');
+                    }
+                } catch (error) {
+                    showToast('❌ Error: ' + error.message, 'error');
+                }
+            }
+            
+            // ============================================================
+            // LOAD & DISPLAY
+            // ============================================================
+            
+            async function loadAllQuestions() {
+                console.log('📥 Loading questions...');
+                
+                try {
+                    showLoading(true);
+                    const result = await fetchAPI(API_URL + '?action=getAll');
+                    
+                    if (result.success) {
+                        allQuestions = result.data || [];
+                        console.log('✅ Loaded', allQuestions.length, 'questions');
+                        updateCategoryFilters();
+                        applyFilter();
+                    } else {
+                        showToast('❌ ' + result.message, 'error');
+                        allQuestions = [];
+                        applyFilter();
+                    }
+                } catch (error) {
+                    console.error('❌ Load error:', error);
+                    allQuestions = [];
+                    applyFilter();
+                } finally {
+                    showLoading(false);
+                }
+            }
+            
+            function showLoading(show) {
+                if (!dom.questionsGrid) return;
+                if (show) {
+                    dom.questionsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="spinner"></div>
+                            <h3>Memuat data...</h3>
+                        </div>
+                    `;
+                }
+            }
+            
+            function updateCategoryFilters() {
+                if (!dom.categoryFilters) return;
+                
+                const categories = new Set(['all']);
+                allQuestions.forEach(q => {
+                    if (q.category) categories.add(q.category);
+                });
+                
+                const sortedCategories = Array.from(categories).sort();
+                const categoryMap = {
+                    'all': '📋 Semua',
+                    'Programming': '💻 Programming',
+                    'Design': '🎨 Design',
+                    'Business': '📊 Business',
+                    'Science': '🔬 Science',
+                    'Technology': '⚡ Technology',
+                    'Education': '📚 Education',
+                    'Health': '🏥 Health',
+                    'Lifestyle': '🌿 Lifestyle',
+                    'Other': '📌 Other'
+                };
+                
+                dom.categoryFilters.innerHTML = sortedCategories.map(cat => {
+                    const label = categoryMap[cat] || cat;
+                    const active = currentFilter === cat ? 'active' : '';
+                    return `<button class="category-filter-btn ${active}" data-category="${cat}" onclick="window.setFilter('${cat}')">${label}</button>`;
+                }).join('');
+            }
+            
+            function setFilter(category) {
+                console.log('🔍 Filter set to:', category);
+                currentFilter = category;
+                applyFilter();
+                updateCategoryFilters();
+            }
+            
+            function applyFilter() {
+                let filtered = allQuestions;
+                if (currentFilter !== 'all') {
+                    filtered = allQuestions.filter(q => q.category === currentFilter);
+                }
+                
+                const sortedData = [...filtered].sort((a, b) => {
+                    return new Date(b.timestamp) - new Date(a.timestamp);
+                });
+                
+                displayQuestions(sortedData);
+                updateStats();
+            }
+            
+            function updateStats() {
+                if (!dom.totalQuestions) return;
+                const total = allQuestions.length;
+                const filtered = currentFilter === 'all' ? total : allQuestions.filter(q => q.category === currentFilter).length;
+                dom.totalQuestions.textContent = filtered;
+            }
+            
+            function displayQuestions(dataArray) {
+                if (!dom.questionsGrid) return;
+                
+                if (!dataArray || dataArray.length === 0) {
+                    const message = currentFilter !== 'all' ? 'Tidak ada pertanyaan di kategori ini' : 'Belum ada pertanyaan';
+                    dom.questionsGrid.innerHTML = `
+                        <div class="empty-state">
+                            <span class="emoji">${currentFilter !== 'all' ? '🔍' : '📭'}</span>
+                            <h3>${message}</h3>
+                            <p>${currentFilter !== 'all' ? 'Coba pilih kategori lain' : 'Klik tombol "+ Tanya Baru" untuk mulai bertanya'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                dom.questionsGrid.innerHTML = '';
+                
+                dataArray.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'question-card';
+                    
+                    const date = new Date(item.timestamp);
+                    const formattedDate = !isNaN(date.getTime()) ? date.toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    }) : 'Tanggal tidak valid';
+                    
+                    const hasAnswer = item.answer && item.answer.trim() !== '';
+                    const statusText = hasAnswer ? '✓ Dijawab' : '○ Belum Dijawab';
+                    const statusClass = hasAnswer ? 'status-answered' : 'status-unanswered';
+                    
+                    const categoryEmoji = {
+                        'Programming': '💻', 'Design': '🎨', 'Business': '📊',
+                        'Science': '🔬', 'Technology': '⚡', 'Education': '📚',
+                        'Health': '🏥', 'Lifestyle': '🌿', 'Other': '📌'
+                    };
+                    const catEmoji = categoryEmoji[item.category] || '📌';
+                    
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div class="card-left">
+                                <div class="question-date">📅 ${formattedDate}</div>
+                                <div class="question-category">${catEmoji} ${item.category || 'Uncategorized'}</div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="edit-card-btn" onclick="window.editQuestionCard(${item.id}, event)" title="Edit">✏️</button>
+                                <button class="delete-card-btn" onclick="window.deleteQuestion(${item.id}, event)" title="Hapus">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="question-text">${escapeHtml(item.question)}</div>
+                        <div class="answer-status ${statusClass}">${statusText}</div>
+                    `;
+                    
+                    card.addEventListener('click', function() {
+                        openAnswerModal(item);
+                    });
+                    
+                    dom.questionsGrid.appendChild(card);
+                });
+            }
+            
+            // ============================================================
+            // ANSWER & EDIT
+            // ============================================================
+            
+            function openAnswerModal(item) {
+                if (!item || !item.id) return;
+                console.log('💬 Opening answer modal for:', item.id);
+                
+                currentAnswerId = item.id;
+                
+                const categoryEmoji = {
+                    'Programming': '💻', 'Design': '🎨', 'Business': '📊',
+                    'Science': '🔬', 'Technology': '⚡', 'Education': '📚',
+                    'Health': '🏥', 'Lifestyle': '🌿', 'Other': '📌'
+                };
+                const catEmoji = categoryEmoji[item.category] || '📌';
+                
+                if (dom.answerQuestionDisplay) {
+                    dom.answerQuestionDisplay.innerHTML = `
+                        <strong>Pertanyaan</strong>
+                        <div class="q-text">${escapeHtml(item.question)}</div>
+                        <div class="q-meta">
+                            <span class="q-category">${catEmoji} ${item.category || 'Uncategorized'}</span>
+                        </div>
+                    `;
+                }
+                
+                if (dom.answerInput) {
+                    dom.answerInput.value = item.answer || '';
+                }
+                
+                openModal(dom.answerModal);
+            }
+            
+            function editQuestionCard(id, event) {
+                if (event) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+                
+                console.log('✏️ Editing question:', id);
+                
+                fetchAPI(API_URL + '?action=getAll')
+                    .then(result => {
+                        if (result.success && result.data) {
+                            const item = result.data.find(q => q.id === id);
+                            if (item) {
+                                currentEditId = id;
+                                if (dom.editQuestion) dom.editQuestion.value = item.question || '';
+                                if (dom.editCategory) dom.editCategory.value = item.category || '';
+                                if (dom.editAnswer) dom.editAnswer.value = item.answer || '';
+                                openModal(dom.editModal);
+                            } else {
+                                showToast('Data tidak ditemukan', 'error');
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        showToast('Error: ' + error.message, 'error');
+                    });
+            }
+            
+            // ============================================================
+            // UTILITY
+            // ============================================================
+            
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
+            
+            function initEventListeners() {
+                console.log('📌 Initializing event listeners...');
+                
+                // OPEN MODAL
+                if (dom.openModalBtn) {
+                    dom.openModalBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('🖱️ Open modal button clicked!');
+                        // Reset form
+                        if (dom.modalQuestion) dom.modalQuestion.value = '';
+                        if (dom.modalCategory) dom.modalCategory.value = '';
+                        if (dom.modalAnswer) dom.modalAnswer.value = '';
+                        openModal(dom.questionModal);
+                    });
+                    console.log('✅ Open modal button attached');
+                } else {
+                    console.error('❌ Open modal button not found!');
+                }
+                
+                // CLOSE BUTTONS
+                document.querySelectorAll('.close, .close-answer, .close-edit, .btn-cancel').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const modal = this.closest('.modal-overlay');
+                        if (modal) closeModal(modal);
+                    });
+                });
+                
+                // CLOSE ON OUTSIDE CLICK
+                document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                    overlay.addEventListener('click', function(e) {
+                        if (e.target === this) closeModal(this);
+                    });
+                });
+                
+                // ESC KEY
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') closeAllModals();
+                });
+                
+                // SAVE QUESTION
+                if (dom.saveQuestionBtn) {
+                    dom.saveQuestionBtn.addEventListener('click', handleSaveQuestion);
+                }
+                
+                // SUBMIT ANSWER
+                if (dom.submitAnswerBtn) {
+                    dom.submitAnswerBtn.addEventListener('click', handleSubmitAnswer);
+                }
+                
+                // SAVE EDIT
+                if (dom.saveEditBtn) {
+                    dom.saveEditBtn.addEventListener('click', handleSaveEdit);
+                }
+                
+                // CLEAR FILTER
+                if (dom.clearFilterBtn) {
+                    dom.clearFilterBtn.addEventListener('click', function() {
+                        setFilter('all');
+                    });
+                }
+                
+                console.log('✅ Event listeners ready!');
+            }
+            
+            // ============================================================
+            // EXPOSE TO GLOBAL
+            // ============================================================
+            
+            window.deleteQuestion = deleteQuestion;
+            window.editQuestionCard = editQuestionCard;
+            window.setFilter = setFilter;
+            window.openAnswerModal = openAnswerModal;
+            window.loadAllQuestions = loadAllQuestions;
+            window.showToast = showToast;
+            
+            // ============================================================
+            // INIT
+            // ============================================================
+            
+            // Wait for DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    initEventListeners();
+                    loadAllQuestions();
+                });
+            } else {
+                initEventListeners();
+                loadAllQuestions();
+            }
+            
+            console.log('✅ Why Web fully loaded!');
+            console.log('📌 Available functions:', {
+                deleteQuestion: typeof window.deleteQuestion,
+                editQuestionCard: typeof window.editQuestionCard,
+                setFilter: typeof window.setFilter,
+                openAnswerModal: typeof window.openAnswerModal,
+                loadAllQuestions: typeof window.loadAllQuestions
+            });
+            
+            // ============================================================
+            // ERROR HANDLERS
+            // ============================================================
+            
+            window.onerror = function(msg, url, lineNo, columnNo, error) {
+                console.error('❌ Global error:', msg);
+                showToast('Error: ' + msg, 'error');
+                return false;
+            };
+            
+            window.addEventListener('unhandledrejection', function(event) {
+                console.error('❌ Unhandled rejection:', event.reason);
+                showToast('Error: ' + (event.reason?.message || 'Unknown error'), 'error');
+            });
+            
+        })();
+    </script>
 </body>
 </html>

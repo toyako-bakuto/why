@@ -1,1 +1,34 @@
-[]
+[
+    {
+        "id": 1,
+        "question": "Cara merubah light mode ke dark mode",
+        "category": "Programming",
+        "answer": "merubah class lewat DOM",
+        "timestamp": "2026-07-08T13:56:13.382Z",
+        "status": "answered"
+    },
+    {
+        "id": 2,
+        "question": "apa itu migrations di laravel?",
+        "category": "Programming",
+        "answer": "",
+        "timestamp": "2026-07-13T01:56:21.133Z",
+        "status": "unanswered"
+    },
+    {
+        "id": 3,
+        "question": "Guna MVC",
+        "category": "Programming",
+        "answer": "Controller\n\u2502\n\u251c\u2500\u2500 Ambil data\n\u251c\u2500\u2500 Validasi\n\u251c\u2500\u2500 Panggil Service\n\u2514\u2500\u2500 Kirim data ke View\n\nService\n\u2502\n\u251c\u2500\u2500 Business Logic\n\u251c\u2500\u2500 Hitung\n\u251c\u2500\u2500 Query\n\u2514\u2500\u2500 Proses data\n\nView (PHP\/Blade)\n\u2502\n\u251c\u2500\u2500 HTML\n\u251c\u2500\u2500 CSS class\n\u251c\u2500\u2500 Loop sederhana\n\u251c\u2500\u2500 if sederhana\n\u2514\u2500\u2500 Tampilkan variabel",
+        "timestamp": "2026-07-13T02:05:32.736Z",
+        "status": "answered"
+    },
+    {
+        "id": 4,
+        "question": "Gunanya PHP",
+        "category": "Programming",
+        "answer": "Membuat HTML yang bisa menjalankan kode.",
+        "timestamp": "2026-07-13T02:05:20.606Z",
+        "status": "answered"
+    }
+]
