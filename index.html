@@ -315,7 +315,6 @@
             border-radius: 20px;
             padding: 32px;
             width: 100%;
-            /* max-width DIHAPUS */
             max-height: 92vh;
             overflow-y: auto;
             border: 1px solid #2a3a52;
@@ -378,7 +377,7 @@
         }
 
         /* ==========================================================
-          FORM - UKURAN NORMAL
+          FORM
         ========================================================== */
         .form-group {
             margin-bottom: 20px;
@@ -404,17 +403,23 @@
             background: #0f1729;
             color: #e8edf5;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: border-color 0.3s, box-shadow 0.3s;
             font-family: inherit;
             line-height: 1.7;
         }
 
+        /* ==========================================================
+          AUTO-RESIZE TEXTAREA
+          - Tidak ada scroll internal
+          - Membesar ke bawah sesuai konten
+          - min-height sebagai batas bawah
+        ========================================================== */
         .form-group textarea {
-            resize: vertical;
-            min-height: 110px;
+            resize: none;            /* Nonaktifkan resize manual */
+            overflow: hidden;        /* Sembunyikan scrollbar */
+            min-height: 110px;       /* Tinggi minimum */
         }
 
-        /* Textarea jawaban - sedikit lebih besar */
         #answerInput {
             min-height: 240px !important;
             font-size: 1.05rem !important;
@@ -686,16 +691,11 @@
             }
         }
 
-        /* SCROLLBAR */
+        /* SCROLLBAR (hanya untuk modal, bukan textarea) */
         .modal::-webkit-scrollbar { width: 6px; }
         .modal::-webkit-scrollbar-track { background: #1a2336; border-radius: 10px; }
         .modal::-webkit-scrollbar-thumb { background: #2a3a52; border-radius: 10px; }
         .modal::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        textarea::-webkit-scrollbar { width: 6px; }
-        textarea::-webkit-scrollbar-track { background: #141b2d; border-radius: 10px; }
-        textarea::-webkit-scrollbar-thumb { background: #2a3a52; border-radius: 10px; }
-        textarea::-webkit-scrollbar-thumb:hover { background: #64748b; }
     </style>
 </head>
 <body>
@@ -758,7 +758,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jawaban <span class="optional">(opsional)</span></label>
-                    <textarea id="modalAnswer" rows="6" placeholder="Tulis jawabanmu di sini..."></textarea>
+                    <textarea id="modalAnswer" rows="4" placeholder="Tulis jawabanmu di sini..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -779,7 +779,7 @@
                 <div class="question-display" id="answerQuestionDisplay"></div>
                 <div class="form-group">
                     <label>Jawabanmu <span class="required">*</span></label>
-                    <textarea id="answerInput" rows="10" placeholder="Tulis jawabanmu di sini..."></textarea>
+                    <textarea id="answerInput" rows="8" placeholder="Tulis jawabanmu di sini..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -818,7 +818,7 @@
                 </div>
                 <div class="form-group">
                     <label>Jawaban</label>
-                    <textarea id="editAnswer" rows="7" placeholder="Edit jawabanmu di sini..."></textarea>
+                    <textarea id="editAnswer" rows="5" placeholder="Edit jawabanmu di sini..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -869,6 +869,63 @@
                 toast: $('toast')
             };
             
+            // ==========================================================
+            // AUTO-RESIZE TEXTAREA
+            // Membuat textarea membesar ke bawah sesuai konten,
+            // tanpa scroll internal.
+            // ==========================================================
+            
+            function autoResize(textarea) {
+                if (!textarea) return;
+                // Reset tinggi dulu supaya scrollHeight dihitung ulang
+                textarea.style.height = 'auto';
+                // Set tinggi sesuai konten (scrollHeight)
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+            
+            function autoResizeAll() {
+                autoResize(dom.answerInput);
+                autoResize(dom.modalAnswer);
+                autoResize(dom.editAnswer);
+                autoResize(dom.modalQuestion);
+                autoResize(dom.editQuestion);
+            }
+            
+            // Pasang listener auto-resize ke semua textarea
+            function setupAutoResize() {
+                const textareas = [
+                    dom.answerInput,
+                    dom.modalAnswer,
+                    dom.editAnswer,
+                    dom.modalQuestion,
+                    dom.editQuestion
+                ];
+                
+                textareas.forEach(textarea => {
+                    if (!textarea) return;
+                    
+                    // Saat mengetik
+                    textarea.addEventListener('input', function() {
+                        autoResize(this);
+                    });
+                    
+                    // Saat paste
+                    textarea.addEventListener('paste', function() {
+                        setTimeout(() => autoResize(this), 0);
+                    });
+                    
+                    // Saat cut
+                    textarea.addEventListener('cut', function() {
+                        setTimeout(() => autoResize(this), 0);
+                    });
+                    
+                    // Saat di-drop (drag & drop text)
+                    textarea.addEventListener('drop', function() {
+                        setTimeout(() => autoResize(this), 0);
+                    });
+                });
+            }
+            
             function showToast(message, type = 'success') {
                 const toast = dom.toast;
                 if (!toast) return;
@@ -886,6 +943,9 @@
                 modal.style.display = 'flex';
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                
+                // Auto-resize semua textarea setelah modal terbuka
+                setTimeout(autoResizeAll, 50);
             }
             
             function closeModal(modal) {
@@ -1198,12 +1258,10 @@
                 }
                 if (dom.answerInput) {
                     dom.answerInput.value = item.answer || '';
-                    setTimeout(() => {
-                        dom.answerInput.style.height = 'auto';
-                        dom.answerInput.style.height = Math.max(240, dom.answerInput.scrollHeight) + 'px';
-                    }, 100);
                 }
                 openModal(dom.answerModal);
+                // Auto-resize setelah value di-set
+                setTimeout(() => autoResize(dom.answerInput), 60);
             }
             
             function editQuestionCard(id, event) {
@@ -1221,6 +1279,8 @@
                                 if (dom.editCategory) dom.editCategory.value = item.category || '';
                                 if (dom.editAnswer) dom.editAnswer.value = item.answer || '';
                                 openModal(dom.editModal);
+                                // Auto-resize setelah value di-set
+                                setTimeout(autoResizeAll, 60);
                             } else {
                                 showToast('Data tidak ditemukan', 'error');
                             }
@@ -1244,6 +1304,7 @@
                         if (dom.modalCategory) dom.modalCategory.value = '';
                         if (dom.modalAnswer) dom.modalAnswer.value = '';
                         openModal(dom.questionModal);
+                        setTimeout(autoResizeAll, 60);
                     });
                 }
                 document.querySelectorAll('.close, .close-answer, .close-edit, .btn-cancel').forEach(btn => {
@@ -1269,6 +1330,9 @@
                         setFilter('all');
                     });
                 }
+                
+                // Setup auto-resize untuk semua textarea
+                setupAutoResize();
             }
             
             window.deleteQuestion = deleteQuestion;
