@@ -7,9 +7,8 @@
     
     <style>
         /* ==========================================================
-          ALL STYLES INLINE - NO EXTERNAL CSS DEPENDENCIES
+          RESET
         ========================================================== */
-        
         * {
             margin: 0;
             padding: 0;
@@ -21,57 +20,62 @@
             color: #e8edf5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         .app {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
         }
 
-        /* HEADER */
+        /* ==========================================================
+          HEADER
+        ========================================================== */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 24px;
-            padding: 20px 28px;
+            gap: 20px;
+            margin-bottom: 32px;
+            padding: 28px 36px;
             background: #141b2d;
-            border-radius: 16px;
+            border-radius: 20px;
             border: 1px solid #2a3a52;
         }
 
         .header-left h1 {
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 700;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
 
         .header-left p {
             color: #94a3b8;
-            font-size: 0.9rem;
-            margin-top: 2px;
+            font-size: 1.05rem;
+            margin-top: 4px;
         }
 
         .btn-add {
-            padding: 12px 28px;
+            padding: 14px 32px;
             background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             color: white;
             border: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(59,130,246,0.3);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .btn-add:hover {
@@ -80,16 +84,18 @@
         }
 
         .btn-add span {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             line-height: 1;
         }
 
-        /* FILTER */
+        /* ==========================================================
+          FILTER
+        ========================================================== */
         .filter-section {
             background: #141b2d;
-            border-radius: 16px;
-            padding: 18px 22px;
-            margin-bottom: 24px;
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-bottom: 32px;
             border: 1px solid #2a3a52;
         }
 
@@ -97,23 +103,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .filter-label {
             font-weight: 600;
             color: #94a3b8;
+            font-size: 1.05rem;
         }
 
         .btn-filter-clear {
-            padding: 5px 14px;
+            padding: 8px 18px;
             border-radius: 50px;
             border: 1px solid #2a3a52;
             background: #1a2336;
             color: #94a3b8;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -127,17 +134,17 @@
         .category-filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 16px;
         }
 
         .category-filter-btn {
-            padding: 5px 14px;
+            padding: 8px 18px;
             border-radius: 50px;
             border: 1px solid #2a3a52;
             background: #1a2336;
             color: #94a3b8;
-            font-size: 0.85rem;
+            font-size: 0.92rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -156,8 +163,8 @@
 
         .filter-stats {
             color: #64748b;
-            font-size: 0.85rem;
-            padding-top: 12px;
+            font-size: 0.95rem;
+            padding-top: 16px;
             border-top: 1px solid #2a3a52;
         }
 
@@ -166,18 +173,22 @@
             font-weight: 600;
         }
 
-        /* GRID */
+        /* ==========================================================
+          GRID
+        ========================================================== */
         .questions-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
         }
 
-        /* CARD */
+        /* ==========================================================
+          CARD
+        ========================================================== */
         .question-card {
             background: #1a2336;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 18px;
+            padding: 26px;
             border: 1px solid #2a3a52;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -193,8 +204,8 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 10px;
-            gap: 10px;
+            margin-bottom: 14px;
+            gap: 12px;
         }
 
         .card-left {
@@ -202,26 +213,28 @@
         }
 
         .question-date {
-            font-size: 0.7rem;
+            font-size: 0.82rem;
             color: #64748b;
+            font-weight: 500;
         }
 
         .question-category {
             display: inline-block;
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 2px 10px;
+            padding: 4px 14px;
             border-radius: 50px;
             background: rgba(59,130,246,0.15);
             color: #3b82f6;
             border: 1px solid rgba(59,130,246,0.2);
-            margin-top: 4px;
+            margin-top: 6px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .card-actions {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             flex-shrink: 0;
         }
 
@@ -229,9 +242,9 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px 6px;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            padding: 6px 8px;
+            border-radius: 8px;
+            font-size: 1.1rem;
             opacity: 0.5;
             transition: all 0.2s;
         }
@@ -247,11 +260,11 @@
         .delete-card-btn:hover { background: rgba(239,68,68,0.15); }
 
         .question-text {
-            font-size: 1.05rem;
+            font-size: 1.2rem;
             font-weight: 500;
             color: #e8edf5;
-            margin: 10px 0 14px 0;
-            line-height: 1.6;
+            margin: 14px 0 18px 0;
+            line-height: 1.65;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
@@ -260,9 +273,9 @@
 
         .answer-status {
             display: inline-block;
-            font-size: 0.75rem;
+            font-size: 0.88rem;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 6px 16px;
             border-radius: 50px;
         }
 
@@ -278,7 +291,9 @@
             border: 1px solid rgba(245,158,11,0.2);
         }
 
-        /* MODAL */
+        /* ==========================================================
+          MODAL
+        ========================================================== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -288,7 +303,7 @@
             z-index: 99999;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px;
         }
 
         .modal-overlay.active {
@@ -297,9 +312,9 @@
 
         .modal {
             background: #141b2d;
-            border-radius: 20px;
-            padding: 28px;
-            max-width: 540px;
+            border-radius: 24px;
+            padding: 36px;
+            max-width: 620px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -317,20 +332,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 16px;
+            padding-bottom: 20px;
             border-bottom: 1px solid #2a3a52;
-            margin-bottom: 20px;
+            margin-bottom: 26px;
         }
 
         .modal-title {
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             font-weight: 600;
             color: #e8edf5;
         }
 
         .modal-close {
-            width: 34px;
-            height: 34px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -338,7 +353,7 @@
             background: #1a2336;
             border: none;
             color: #94a3b8;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -356,52 +371,55 @@
         .modal-footer {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            padding-top: 20px;
+            gap: 12px;
+            padding-top: 24px;
             border-top: 1px solid #2a3a52;
-            margin-top: 20px;
+            margin-top: 26px;
         }
 
-        /* FORM */
+        /* ==========================================================
+          FORM
+        ========================================================== */
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             font-weight: 600;
             color: #94a3b8;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
         .form-group .required { color: #ef4444; }
-        .form-group .optional { color: #64748b; font-weight: 400; font-size: 0.8rem; }
+        .form-group .optional { color: #64748b; font-weight: 400; font-size: 0.9rem; }
 
         .form-group textarea,
         .form-group .form-select {
             width: 100%;
-            padding: 10px 14px;
+            padding: 14px 18px;
             border: 1px solid #2a3a52;
-            border-radius: 10px;
+            border-radius: 12px;
             background: #0f1729;
             color: #e8edf5;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             transition: all 0.3s;
             font-family: inherit;
+            line-height: 1.6;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 70px;
+            min-height: 90px;
         }
 
         .form-group .form-select {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 36px;
+            background-position: right 18px center;
+            padding-right: 44px;
             cursor: pointer;
         }
 
@@ -421,33 +439,36 @@
             color: #64748b;
         }
 
-        /* QUESTION DISPLAY */
+        /* ==========================================================
+          QUESTION DISPLAY
+        ========================================================== */
         .question-display {
             background: #1a2336;
-            padding: 16px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 26px;
             border-left: 4px solid #3b82f6;
         }
 
         .question-display .q-text {
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 500;
             color: #e8edf5;
-            margin: 6px 0;
+            margin: 8px 0;
+            line-height: 1.6;
         }
 
         .question-display .q-meta {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            margin-top: 6px;
+            margin-top: 10px;
         }
 
         .question-display .q-category {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            padding: 2px 10px;
+            padding: 4px 14px;
             border-radius: 50px;
             background: rgba(59,130,246,0.15);
             color: #3b82f6;
@@ -458,22 +479,24 @@
         .question-display strong {
             color: #94a3b8;
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        /* BUTTONS */
+        /* ==========================================================
+          BUTTONS
+        ========================================================== */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 9px 20px;
+            gap: 8px;
+            padding: 12px 26px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
         }
@@ -509,22 +532,24 @@
             color: #e8edf5;
         }
 
-        /* TOAST */
+        /* ==========================================================
+          TOAST
+        ========================================================== */
         .toast {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            padding: 14px 24px;
-            border-radius: 10px;
+            padding: 16px 28px;
+            border-radius: 12px;
             color: white;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 1rem;
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.4s ease;
             z-index: 999999;
-            max-width: 400px;
+            max-width: 420px;
         }
 
         .toast.show {
@@ -535,55 +560,96 @@
         .toast-success { background: linear-gradient(135deg, #22c55e, #16a34a); }
         .toast-error { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
-        /* EMPTY STATE */
+        /* ==========================================================
+          EMPTY STATE
+        ========================================================== */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 60px 20px;
+            padding: 70px 24px;
             background: #141b2d;
-            border-radius: 16px;
+            border-radius: 18px;
             border: 2px dashed #2a3a52;
         }
 
-        .empty-state .emoji { font-size: 3.5rem; display: block; margin-bottom: 12px; }
-        .empty-state h3 { font-size: 1.3rem; font-weight: 600; color: #e8edf5; margin-bottom: 6px; }
-        .empty-state p { color: #64748b; font-size: 0.95rem; }
+        .empty-state .emoji { font-size: 4rem; display: block; margin-bottom: 16px; }
+        .empty-state h3 { font-size: 1.5rem; font-weight: 600; color: #e8edf5; margin-bottom: 8px; }
+        .empty-state p { color: #64748b; font-size: 1.05rem; }
 
-        /* SPINNER */
+        /* ==========================================================
+          SPINNER
+        ========================================================== */
         .spinner {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border: 4px solid #2a3a52;
             border-top-color: #3b82f6;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 12px;
+            margin: 0 auto 16px;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* RESPONSIVE */
+        /* ==========================================================
+          RESPONSIVE
+        ========================================================== */
         @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 16px 20px; }
-            .header-left h1 { font-size: 1.5rem; }
-            .btn-add { width: 100%; justify-content: center; }
-            .filter-section { padding: 14px 16px; }
-            .questions-grid { grid-template-columns: 1fr; }
-            .modal { padding: 20px; margin: 10px; }
+            body { padding: 16px; }
+
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px;
+            }
+
+            .header-left h1 { font-size: 1.9rem; }
+            .header-left p { font-size: 1rem; }
+
+            .btn-add {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 24px;
+                font-size: 1.05rem;
+            }
+
+            .filter-section { padding: 20px; }
+            .questions-grid { grid-template-columns: 1fr; gap: 20px; }
+            .question-card { padding: 22px; }
+            .question-text { font-size: 1.1rem; }
+
+            .modal {
+                padding: 28px;
+                margin: 12px;
+            }
+
+            .modal-title { font-size: 1.35rem; }
             .modal-footer { flex-direction: column-reverse; }
             .modal-footer .btn { width: 100%; justify-content: center; }
-            .toast { bottom: 16px; right: 16px; left: 16px; max-width: none; text-align: center; }
+
+            .toast {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+                text-align: center;
+                font-size: 0.95rem;
+            }
         }
 
         @media (max-width: 480px) {
-            body { padding: 10px; }
-            .question-text { font-size: 0.95rem; }
-            .modal { padding: 16px; }
-            .modal-title { font-size: 1.1rem; }
+            body { padding: 12px; }
+            .header-left h1 { font-size: 1.6rem; }
+            .question-text { font-size: 1.05rem; }
+            .modal { padding: 22px; }
+            .modal-title { font-size: 1.2rem; }
+            .category-filter-btn { font-size: 0.85rem; padding: 7px 14px; }
+            .form-group textarea,
+            .form-group .form-select { font-size: 1rem; padding: 12px 16px; }
         }
 
         /* SCROLLBAR */
-        .modal::-webkit-scrollbar { width: 5px; }
+        .modal::-webkit-scrollbar { width: 6px; }
         .modal::-webkit-scrollbar-track { background: #1a2336; border-radius: 10px; }
         .modal::-webkit-scrollbar-thumb { background: #2a3a52; border-radius: 10px; }
         .modal::-webkit-scrollbar-thumb:hover { background: #64748b; }
@@ -723,36 +789,19 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        // ============================================================
-        // WHY WEB - FULL JAVASCRIPT (Inline untuk menghindari masalah loading)
-        // ============================================================
-        
         (function() {
             'use strict';
             
             console.log('🚀 Why Web starting...');
             
-            // ============================================================
-            // CONFIG
-            // ============================================================
-            
             const API_URL = 'save-data.php';
-            
-            // ============================================================
-            // STATE
-            // ============================================================
             
             let currentAnswerId = null;
             let currentEditId = null;
             let currentFilter = 'all';
             let allQuestions = [];
             
-            // ============================================================
-            // DOM REFS
-            // ============================================================
-            
             const $ = (id) => document.getElementById(id);
-            const $$ = (sel) => document.querySelectorAll(sel);
             
             const dom = {
                 openModalBtn: $('openModalBtn'),
@@ -777,40 +826,23 @@
                 toast: $('toast')
             };
             
-            console.log('📌 DOM Elements:', Object.keys(dom).filter(k => dom[k]).length, 'found');
-            
-            // ============================================================
-            // TOAST
-            // ============================================================
-            
             function showToast(message, type = 'success') {
                 const toast = dom.toast;
                 if (!toast) return;
-                
                 toast.textContent = message;
                 toast.className = 'toast';
                 toast.classList.add(type === 'success' ? 'toast-success' : 'toast-error');
-                
-                // Force reflow
                 void toast.offsetWidth;
                 toast.classList.add('show');
-                
                 clearTimeout(toast._timeout);
-                toast._timeout = setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
+                toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
             }
-            
-            // ============================================================
-            // MODAL
-            // ============================================================
             
             function openModal(modal) {
                 if (!modal) return;
                 modal.style.display = 'flex';
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                console.log('📂 Modal opened:', modal.id);
             }
             
             function closeModal(modal) {
@@ -818,7 +850,6 @@
                 modal.style.display = 'none';
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
-                console.log('📂 Modal closed:', modal.id);
             }
             
             function closeAllModals() {
@@ -826,10 +857,6 @@
                 closeModal(dom.answerModal);
                 closeModal(dom.editModal);
             }
-            
-            // ============================================================
-            // API
-            // ============================================================
             
             async function fetchAPI(url, options = {}) {
                 try {
@@ -840,16 +867,9 @@
                             ...(options.headers || {})
                         }
                     });
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                    
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     const text = await response.text();
-                    if (!text || text.trim() === '') {
-                        throw new Error('Response kosong');
-                    }
-                    
+                    if (!text || text.trim() === '') throw new Error('Response kosong');
                     return JSON.parse(text);
                 } catch (error) {
                     console.error('❌ Fetch error:', error);
@@ -858,13 +878,7 @@
                 }
             }
             
-            // ============================================================
-            // CRUD
-            // ============================================================
-            
             async function handleSaveQuestion() {
-                console.log('💾 Saving question...');
-                
                 const question = dom.modalQuestion?.value.trim() || '';
                 const category = dom.modalCategory?.value || '';
                 const answer = dom.modalAnswer?.value.trim() || '';
@@ -874,7 +888,6 @@
                     dom.modalQuestion?.focus();
                     return;
                 }
-                
                 if (!category) {
                     showToast('Silakan pilih kategori!', 'error');
                     dom.modalCategory?.focus();
@@ -885,14 +898,11 @@
                     const result = await fetchAPI(API_URL, {
                         method: 'POST',
                         body: JSON.stringify({
-                            question,
-                            category,
-                            answer,
+                            question, category, answer,
                             timestamp: new Date().toISOString(),
                             status: answer ? 'answered' : 'unanswered'
                         })
                     });
-                    
                     if (result.success) {
                         showToast('✅ Pertanyaan berhasil disimpan!', 'success');
                         closeModal(dom.questionModal);
@@ -906,16 +916,12 @@
             }
             
             async function handleSubmitAnswer() {
-                console.log('💾 Submitting answer...');
-                
                 const answer = dom.answerInput?.value.trim() || '';
-                
                 if (!answer) {
                     showToast('Jawaban tidak boleh kosong!', 'error');
                     dom.answerInput?.focus();
                     return;
                 }
-                
                 try {
                     const result = await fetchAPI(API_URL, {
                         method: 'PUT',
@@ -925,7 +931,6 @@
                             timestamp: new Date().toISOString()
                         })
                     });
-                    
                     if (result.success) {
                         showToast('✅ Jawaban berhasil disimpan!', 'success');
                         closeModal(dom.answerModal);
@@ -939,8 +944,6 @@
             }
             
             async function handleSaveEdit() {
-                console.log('💾 Saving edit...');
-                
                 const question = dom.editQuestion?.value.trim() || '';
                 const category = dom.editCategory?.value || '';
                 const answer = dom.editAnswer?.value.trim() || '';
@@ -950,25 +953,20 @@
                     dom.editQuestion?.focus();
                     return;
                 }
-                
                 if (!category) {
                     showToast('Silakan pilih kategori!', 'error');
                     dom.editCategory?.focus();
                     return;
                 }
-                
                 try {
                     const result = await fetchAPI(API_URL, {
                         method: 'PUT',
                         body: JSON.stringify({
                             id: currentEditId,
-                            question,
-                            category,
-                            answer,
+                            question, category, answer,
                             timestamp: new Date().toISOString()
                         })
                     });
-                    
                     if (result.success) {
                         showToast('✅ Pertanyaan berhasil diupdate!', 'success');
                         closeModal(dom.editModal);
@@ -981,28 +979,17 @@
                 }
             }
             
-            // ============================================================
-            // DELETE
-            // ============================================================
-            
             async function deleteQuestion(id, event) {
                 if (event) {
                     event.stopPropagation();
                     event.preventDefault();
                 }
-                
-                console.log('🗑️ Deleting question:', id);
-                
-                if (!confirm('Apakah Anda yakin ingin menghapus pertanyaan ini?')) {
-                    return;
-                }
-                
+                if (!confirm('Apakah Anda yakin ingin menghapus pertanyaan ini?')) return;
                 try {
                     const result = await fetchAPI(API_URL, {
                         method: 'DELETE',
                         body: JSON.stringify({ id })
                     });
-                    
                     if (result.success) {
                         showToast('✅ Pertanyaan berhasil dihapus!', 'success');
                         loadAllQuestions();
@@ -1014,20 +1001,12 @@
                 }
             }
             
-            // ============================================================
-            // LOAD & DISPLAY
-            // ============================================================
-            
             async function loadAllQuestions() {
-                console.log('📥 Loading questions...');
-                
                 try {
                     showLoading(true);
                     const result = await fetchAPI(API_URL + '?action=getAll');
-                    
                     if (result.success) {
                         allQuestions = result.data || [];
-                        console.log('✅ Loaded', allQuestions.length, 'questions');
                         updateCategoryFilters();
                         applyFilter();
                     } else {
@@ -1036,7 +1015,6 @@
                         applyFilter();
                     }
                 } catch (error) {
-                    console.error('❌ Load error:', error);
                     allQuestions = [];
                     applyFilter();
                 } finally {
@@ -1058,12 +1036,10 @@
             
             function updateCategoryFilters() {
                 if (!dom.categoryFilters) return;
-                
                 const categories = new Set(['all']);
                 allQuestions.forEach(q => {
                     if (q.category) categories.add(q.category);
                 });
-                
                 const sortedCategories = Array.from(categories).sort();
                 const categoryMap = {
                     'all': '📋 Semua',
@@ -1077,7 +1053,6 @@
                     'Lifestyle': '🌿 Lifestyle',
                     'Other': '📌 Other'
                 };
-                
                 dom.categoryFilters.innerHTML = sortedCategories.map(cat => {
                     const label = categoryMap[cat] || cat;
                     const active = currentFilter === cat ? 'active' : '';
@@ -1086,7 +1061,6 @@
             }
             
             function setFilter(category) {
-                console.log('🔍 Filter set to:', category);
                 currentFilter = category;
                 applyFilter();
                 updateCategoryFilters();
@@ -1097,11 +1071,7 @@
                 if (currentFilter !== 'all') {
                     filtered = allQuestions.filter(q => q.category === currentFilter);
                 }
-                
-                const sortedData = [...filtered].sort((a, b) => {
-                    return new Date(b.timestamp) - new Date(a.timestamp);
-                });
-                
+                const sortedData = [...filtered].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
                 displayQuestions(sortedData);
                 updateStats();
             }
@@ -1115,7 +1085,6 @@
             
             function displayQuestions(dataArray) {
                 if (!dom.questionsGrid) return;
-                
                 if (!dataArray || dataArray.length === 0) {
                     const message = currentFilter !== 'all' ? 'Tidak ada pertanyaan di kategori ini' : 'Belum ada pertanyaan';
                     dom.questionsGrid.innerHTML = `
@@ -1127,33 +1096,24 @@
                     `;
                     return;
                 }
-                
                 dom.questionsGrid.innerHTML = '';
-                
                 dataArray.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'question-card';
-                    
                     const date = new Date(item.timestamp);
                     const formattedDate = !isNaN(date.getTime()) ? date.toLocaleDateString('id-ID', {
-                        day: 'numeric',
-                        month: 'long',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
+                        day: 'numeric', month: 'long', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
                     }) : 'Tanggal tidak valid';
-                    
                     const hasAnswer = item.answer && item.answer.trim() !== '';
                     const statusText = hasAnswer ? '✓ Dijawab' : '○ Belum Dijawab';
                     const statusClass = hasAnswer ? 'status-answered' : 'status-unanswered';
-                    
                     const categoryEmoji = {
                         'Programming': '💻', 'Design': '🎨', 'Business': '📊',
                         'Science': '🔬', 'Technology': '⚡', 'Education': '📚',
                         'Health': '🏥', 'Lifestyle': '🌿', 'Other': '📌'
                     };
                     const catEmoji = categoryEmoji[item.category] || '📌';
-                    
                     card.innerHTML = `
                         <div class="card-header">
                             <div class="card-left">
@@ -1168,32 +1128,22 @@
                         <div class="question-text">${escapeHtml(item.question)}</div>
                         <div class="answer-status ${statusClass}">${statusText}</div>
                     `;
-                    
                     card.addEventListener('click', function() {
                         openAnswerModal(item);
                     });
-                    
                     dom.questionsGrid.appendChild(card);
                 });
             }
             
-            // ============================================================
-            // ANSWER & EDIT
-            // ============================================================
-            
             function openAnswerModal(item) {
                 if (!item || !item.id) return;
-                console.log('💬 Opening answer modal for:', item.id);
-                
                 currentAnswerId = item.id;
-                
                 const categoryEmoji = {
                     'Programming': '💻', 'Design': '🎨', 'Business': '📊',
                     'Science': '🔬', 'Technology': '⚡', 'Education': '📚',
                     'Health': '🏥', 'Lifestyle': '🌿', 'Other': '📌'
                 };
                 const catEmoji = categoryEmoji[item.category] || '📌';
-                
                 if (dom.answerQuestionDisplay) {
                     dom.answerQuestionDisplay.innerHTML = `
                         <strong>Pertanyaan</strong>
@@ -1203,11 +1153,9 @@
                         </div>
                     `;
                 }
-                
                 if (dom.answerInput) {
                     dom.answerInput.value = item.answer || '';
                 }
-                
                 openModal(dom.answerModal);
             }
             
@@ -1216,9 +1164,6 @@
                     event.stopPropagation();
                     event.preventDefault();
                 }
-                
-                console.log('✏️ Editing question:', id);
-                
                 fetchAPI(API_URL + '?action=getAll')
                     .then(result => {
                         if (result.success && result.data) {
@@ -1234,14 +1179,8 @@
                             }
                         }
                     })
-                    .catch(error => {
-                        showToast('Error: ' + error.message, 'error');
-                    });
+                    .catch(error => showToast('Error: ' + error.message, 'error'));
             }
-            
-            // ============================================================
-            // UTILITY
-            // ============================================================
             
             function escapeHtml(text) {
                 if (!text) return '';
@@ -1250,30 +1189,16 @@
                 return div.innerHTML;
             }
             
-            // ============================================================
-            // EVENT LISTENERS
-            // ============================================================
-            
             function initEventListeners() {
-                console.log('📌 Initializing event listeners...');
-                
-                // OPEN MODAL
                 if (dom.openModalBtn) {
                     dom.openModalBtn.addEventListener('click', function(e) {
                         e.preventDefault();
-                        console.log('🖱️ Open modal button clicked!');
-                        // Reset form
                         if (dom.modalQuestion) dom.modalQuestion.value = '';
                         if (dom.modalCategory) dom.modalCategory.value = '';
                         if (dom.modalAnswer) dom.modalAnswer.value = '';
                         openModal(dom.questionModal);
                     });
-                    console.log('✅ Open modal button attached');
-                } else {
-                    console.error('❌ Open modal button not found!');
                 }
-                
-                // CLOSE BUTTONS
                 document.querySelectorAll('.close, .close-answer, .close-edit, .btn-cancel').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.preventDefault();
@@ -1281,47 +1206,23 @@
                         if (modal) closeModal(modal);
                     });
                 });
-                
-                // CLOSE ON OUTSIDE CLICK
                 document.querySelectorAll('.modal-overlay').forEach(overlay => {
                     overlay.addEventListener('click', function(e) {
                         if (e.target === this) closeModal(this);
                     });
                 });
-                
-                // ESC KEY
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape') closeAllModals();
                 });
-                
-                // SAVE QUESTION
-                if (dom.saveQuestionBtn) {
-                    dom.saveQuestionBtn.addEventListener('click', handleSaveQuestion);
-                }
-                
-                // SUBMIT ANSWER
-                if (dom.submitAnswerBtn) {
-                    dom.submitAnswerBtn.addEventListener('click', handleSubmitAnswer);
-                }
-                
-                // SAVE EDIT
-                if (dom.saveEditBtn) {
-                    dom.saveEditBtn.addEventListener('click', handleSaveEdit);
-                }
-                
-                // CLEAR FILTER
+                if (dom.saveQuestionBtn) dom.saveQuestionBtn.addEventListener('click', handleSaveQuestion);
+                if (dom.submitAnswerBtn) dom.submitAnswerBtn.addEventListener('click', handleSubmitAnswer);
+                if (dom.saveEditBtn) dom.saveEditBtn.addEventListener('click', handleSaveEdit);
                 if (dom.clearFilterBtn) {
                     dom.clearFilterBtn.addEventListener('click', function() {
                         setFilter('all');
                     });
                 }
-                
-                console.log('✅ Event listeners ready!');
             }
-            
-            // ============================================================
-            // EXPOSE TO GLOBAL
-            // ============================================================
             
             window.deleteQuestion = deleteQuestion;
             window.editQuestionCard = editQuestionCard;
@@ -1330,11 +1231,6 @@
             window.loadAllQuestions = loadAllQuestions;
             window.showToast = showToast;
             
-            // ============================================================
-            // INIT
-            // ============================================================
-            
-            // Wait for DOM
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     initEventListeners();
@@ -1344,31 +1240,6 @@
                 initEventListeners();
                 loadAllQuestions();
             }
-            
-            console.log('✅ Why Web fully loaded!');
-            console.log('📌 Available functions:', {
-                deleteQuestion: typeof window.deleteQuestion,
-                editQuestionCard: typeof window.editQuestionCard,
-                setFilter: typeof window.setFilter,
-                openAnswerModal: typeof window.openAnswerModal,
-                loadAllQuestions: typeof window.loadAllQuestions
-            });
-            
-            // ============================================================
-            // ERROR HANDLERS
-            // ============================================================
-            
-            window.onerror = function(msg, url, lineNo, columnNo, error) {
-                console.error('❌ Global error:', msg);
-                showToast('Error: ' + msg, 'error');
-                return false;
-            };
-            
-            window.addEventListener('unhandledrejection', function(event) {
-                console.error('❌ Unhandled rejection:', event.reason);
-                showToast('Error: ' + (event.reason?.message || 'Unknown error'), 'error');
-            });
-            
         })();
     </script>
 </body>
